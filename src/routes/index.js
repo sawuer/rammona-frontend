@@ -1,12 +1,14 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Signup from '../components/Signup/Signup';
+import Signin from '../components/Signin/Signin';
 
 export default () => (
   <BrowserRouter>
-    <div>
+    <Switch>
       <Route path="/signup" exact component={Signup} />
-    </div>
+      <Route path="/signin" exact component={Signin} />
+    </Switch>
   </BrowserRouter>
 )

@@ -1,7 +1,9 @@
-import { createStore } from 'redux';
-import reducer from './reducer.js';
+import { createStore, combineReducers } from 'redux';
+import signin from './signin/reducer';
 
-const store = createStore(reducer);
+const store = createStore(combineReducers({
+  signin,
+}));
 
 window.store = store;
 

@@ -12,12 +12,6 @@ class App extends Component {
     redirect_to_root: false,
   }
 
-  componentDidMount = () => {
-    if (this.props.user_token === '') {
-      this.setState({ redirect_to_root: true });
-    }
-  }
-
   render() {
     return (
       <BrowserRouter>
@@ -27,15 +21,17 @@ class App extends Component {
           
           <Route path="/transactions" exact component={Transactions} />
           <Route path="/settings" exact component={Settings} />
-          {this.state.redirect_to_root ? <Redirect to = "/signin" /> : ''}
+
+          {this.props.user_token === '' ? <Redirect to = "/signin" /> : ''}
         </Switch>
       </BrowserRouter>
     )
   }
 }
 
-export default connect(state => ({
-  user_token: state.user_token,
-  user_email: state.user_email,
+export default connect(({ signin: { user_token, user_email } }) => ({
+  user_token,
+  user_email,
 }), {
+
 })(App);

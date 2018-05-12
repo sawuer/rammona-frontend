@@ -31,16 +31,16 @@ class Settings extends Component {
         <Nav />
         <div className="Settings-container">
           <h1>Settings</h1>
+          <div>{this.props.user_email}</div>
         </div>
       </div>
     )
   }
 }
 
-export default connect(({
+export default connect(({ signin: { user_token, user_email } }) => ({
   user_token,
-}) => ({
-  user_token,
+  user_email,
 }), {
 
 })(Settings);

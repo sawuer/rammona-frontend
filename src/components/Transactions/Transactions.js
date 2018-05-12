@@ -31,17 +31,13 @@ class Transactions extends Component {
         <div className="Transactions-container">
           <h1>Transactions</h1>
           <div>{this.props.user_email}</div>
-
         </div>
       </div>
     )
   }
 }
 
-export default connect(({
-  user_token,
-  user_email,
-}) => ({
+export default connect(({ signin: { user_token, user_email }}) => ({
   user_token,
   user_email,
 }), {

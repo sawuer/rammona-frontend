@@ -6,9 +6,10 @@ import Alert from './../Alert/Alert'
 import fetcher from '../../utils/fetcher'
 import { connect } from 'react-redux';
 
-// actions
-import put_user_email from '../../actions/put_user_email.js';
-import put_user_token from '../../actions/put_user_token.js';
+import { 
+  put_user_token, 
+  put_user_email,
+} from '../../store/signin/actions/_all.js';
 
 class Signin extends Component {
   state = {
@@ -80,7 +81,6 @@ class Signin extends Component {
             <button
               onClick={() => this.props.history.push('/transactions')}>Transactions</button>
 
-
           </div> 
 
         </div>
@@ -89,9 +89,7 @@ class Signin extends Component {
   }
 }
 
-export default connect(({
-  
-}) => ({
+export default connect(state => ({
 
 }), {
   put_user_token,

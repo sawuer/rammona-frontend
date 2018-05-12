@@ -1,0 +1,53 @@
+.CommonTable {
+}
+
+.CommonTable-item {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+    border-bottom: 1px solid #eee;
+}
+
+.CommonTable-item:last-child {
+  border: none;
+}
+
+.CommonTable-headers {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+}
+.CommonTable-header {
+  flex: 1;
+}
+
+.CommonTable-header_title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 2em;
+  font-weight: bold;
+  display: block;
+}
+
+.CommonTable-header_filter {
+  display: block;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #eee;
+  transition: border-color 200ms;
+}
+
+.CommonTable-header_filter:focus {
+  border-color: rgb(212, 0, 255);
+}
+
+.CommonTable-item_field {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 2em;
+  white-space: nowrap;
+  /* display: inline-block; */
+}

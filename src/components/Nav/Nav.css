@@ -1,13 +1,30 @@
 .Nav {
-  /* position: absolute;
+  position: absolute;
   top: 0;
-  right: 0;
   bottom: 0;
-  left: 0; */
+  width: 50px;
+  background: #f4f4f4;
 }
 
 .Nav-item {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  height: 50px;
+  outline: none;
+  transition: color 200ms;
 }
 
-.Nav-button:hover {
+.Nav-item:hover {
+  color: #bbb;
+}
+.Nav-item--active,
+.Nav-item--active:hover {
+  color: rgb(212, 0, 255);
+}
+
+.Nav-item_icon {
+  font-size: 2.5em;
 }

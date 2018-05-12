@@ -10,19 +10,26 @@ class Nav extends Component {
   render() {
     return (
       <div className="Nav">
-        <button className="Nav-item"
-          onClick={() => this.route('/settings')}
-        >Settings</button>
-        <button className="Nav-item"
-          onClick={() => this.route('/transactions')}
-        >Transactions</button>
+        
+        <button 
+          className={this.props.history.location.pathname === '/transactions' ? 'Nav-item Nav-item--active' : 'Nav-item'}
+          onClick={() => this.route('/transactions')}>
+          <span className="Nav-item_icon material-icons">face</span>
+        </button>
+
+        <button
+          className={this.props.history.location.pathname === '/settings' ? 'Nav-item Nav-item--active' : 'Nav-item'}
+          onClick={() => this.route('/settings')}>
+          <span className="Nav-item_icon material-icons">face</span>
+        </button>
+
       </div>
     )
   }
 }
 
 export default connect(({
-  
+
 }) => ({
 
 }), {

@@ -28,7 +28,6 @@ class Signin extends Component {
     if (resp === 'wrong email and password' || resp === 'user not found or not veryfied') {
       return this.setState({ error_wrong_user_data: true });
     }
-    console.log(resp)
     this.props.put_user_token(resp);
     this.props.put_user_email(this.state.user_id);
     this.props.history.push('/transactions');
@@ -76,9 +75,9 @@ class Signin extends Component {
               onClick={() => this.props.history.push('/signup')}
             >Or signup</button>
 
-            <button className="Nav-item"
+            <button
               onClick={() => this.props.history.push('/settings')}>Settings</button>
-            <button className="Nav-item"
+            <button
               onClick={() => this.props.history.push('/transactions')}>Transactions</button>
 
 

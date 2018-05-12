@@ -1,11 +1,13 @@
 import initialState from './state.js';
 
-export default (state = initialState, action) => {
-  switch (action.type) {
+export default (state = initialState, { val, type }) => {
+  switch (type) {
 
-    case 'SIGNUP':
-      console.log(this.state);
-      return { ...state, user: { ...state.user } }
+    case 'PUT_USER_TOKEN':
+      return { ...state, user_token: val }
+    
+    case 'PUT_USER_EMAIL':
+      return { ...state, user_email: val }
 
     // case 'CREATE_MEMBER':
     //   return { ...state, members: [...state.members, action.val] }

@@ -1,6 +1,6 @@
 export default {
-  user: {
-    token: null,
-    email: null,
-  }
+  user_token: '',
+  user_email: '',
+  transaction_types: [],
+  transactions: [],
 }

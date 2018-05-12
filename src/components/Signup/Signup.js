@@ -4,8 +4,6 @@ import logo from '../../img/logo.png'
 import Alert from './../Alert/Alert'
 
 import fetcher from '../../utils/fetcher'
-// import { connect } from 'react-redux';
-// import { signup } from '../../actions/signup.js';
 
 export default class Signup extends Component {
   state = {
@@ -107,6 +105,11 @@ export default class Signup extends Component {
                 className="Signup-button"
                 onClick={() => this.signup()}
               >Sign Up</button>
+
+              <button
+                className=""
+                onClick={() => this.props.history.push('/signin')}
+              >Signin</button>
             
             </div> : <Alert
               msg={'Check your email'}
@@ -115,14 +118,7 @@ export default class Signup extends Component {
           }
 
         </div>
-        {/* <div>Store user.email: {this.props.user.email}</div> */}
       </div>
     )
   }
 }
-
-// export default connect(state => ({
-//   user: state.user,
-// }), {
-//   signup,
-// })(Signup);

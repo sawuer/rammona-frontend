@@ -1,14 +1,19 @@
 .CommonTable {
 }
 
+.CommonTable-container {
+  padding-left: 35px;
+}
+
 .CommonTable-item {
+  position: relative;
   display: flex;
   width: 100%;
   flex-direction: row;
-    border-bottom: 1px solid #eee;
+  border-top: 1px solid #eee;
 }
 
-.CommonTable-item:last-child {
+.CommonTable-item:first-child {
   border: none;
 }
 
@@ -17,6 +22,7 @@
   width: 100%;
   flex-direction: row;
 }
+
 .CommonTable-header {
   flex: 1;
 }
@@ -28,6 +34,11 @@
   line-height: 2em;
   font-weight: bold;
   display: block;
+  color: #555;
+}
+
+.CommonTable-header:last-child .CommonTable-header_title {
+  text-align: right;
 }
 
 .CommonTable-header_filter {
@@ -35,7 +46,7 @@
   width: 100%;
   outline: none;
   border: none;
-  border-bottom: 2px solid #eee;
+  border-bottom: 3px solid #eee;
   transition: border-color 200ms;
 }
 
@@ -49,5 +60,91 @@
   text-overflow: ellipsis;
   line-height: 2em;
   white-space: nowrap;
+  color: #555;
   /* display: inline-block; */
+}
+
+.CommonTable-item_field:last-child {
+  text-align: right;
+}
+
+.CommonTable-new_item {
+  display: flex;
+  width: 100%;
+  position: relative;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.CommonTable-new_item_field {
+  flex: 1;
+}
+
+.CommonTable-new_item_field_input {
+  border: 1px solid #eee;
+  width: 100%;
+  outline: none;
+  box-sizing: border-box;
+  line-height: 1.6em;
+}
+
+.CommonTable-delete {
+  position: absolute;
+  left: -35px;
+  top: 4px;
+  border: none;
+  color: #ddd;
+  border-radius: 50%;
+  width: 25px;
+  cursor: pointer;
+  height: 25px;
+  outline: none;
+  background: none;
+  box-shadow: inset 0 0 1px #ccc;
+  transition: background 200ms;
+}
+
+.CommonTable-delete:hover {
+  background: #f4f4f4;
+  box-shadow: none;
+}
+
+.CommonTable-delete_icon {
+  font-size: 1.2em;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  line-height: 1em;
+  transform: translate(-.5em, -.5em);
+}
+
+.CommonTable-new_item_add {
+  position: absolute;
+  left: -35px;
+  top: 0;
+  border: none;
+  color: #ddd;
+  border-radius: 50%;
+  width: 25px;
+  cursor: pointer;
+  height: 25px;
+  outline: none;
+  background: none;
+  box-shadow: inset 0 0 1px #ccc;
+  transition: background 200ms;
+}
+
+.CommonTable-new_item_add_icon {
+  font-size: 1.5em;
+  position: absolute;
+  line-height: 1em;
+  left: 50%;
+  top: 50%;
+  transform: translate(-.5em, -.5em);
+}
+
+.CommonTable-new_item_add:hover {
+  background: rgb(212, 0, 255);
+  color: #fff;
+  box-shadow: none;
 }

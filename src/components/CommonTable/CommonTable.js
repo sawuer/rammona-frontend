@@ -44,24 +44,45 @@ export default class CommonTable extends Component {
               )
             })}
           </div>
-          {this.props.features.map((feature, feature_key) => {
-            return (
-              <div className="CommonTable-item" key={feature_key}>
-                {this.props.attrs.map((field, field_key) => (
-                  <div className="CommonTable-item_field" key={field_key}>
-                    {field == this.props.date_field 
-                      ? feature[field]
-                        .replace('T', ' ')
-                        .replace('.706Z', '')
-                        .replace(/\-/g, '.') 
-                      : feature[field]
-                    }
-                  </div>
-                ))}
-              </div>
-            )
-          })}
+          <div className="CommonTable-items">
+            {this.props.features.map((feature, feature_key) => {
+              return (
+                <div className="CommonTable-item" key={feature_key}>
+                  <button className="CommonTable-delete">
+                    <i className="CommonTable-delete_icon mdi mdi-delete"></i>
+                  </button>
+                  
+                  {this.props.attrs.map((field, field_key) => (
+                    <div className="CommonTable-item_field" key={field_key}>
+                      {field == this.props.date_field 
+                        ? feature[field]
+                          .replace('T', ' ')
+                          .replace('.706Z', '')
+                          .replace(/\-/g, '.') 
+                        : feature[field]
+                      }
+                    </div>
+                  ))}
+                </div>
+              )
+            })}
+          </div>
+        
+           <div className="CommonTable-new_item">
+            <button className="CommonTable-new_item_add">
+              <i className="CommonTable-new_item_add_icon mdi mdi-plus"></i>
+            </button>
+            {this.props.attrs.map((attr, attr_key) => (
+               <div className="CommonTable-new_item_field" key={attr_key}>
+                 <input
+                   type="text"
+                   className="CommonTable-new_item_field_input"
+                 />
+               </div>
+             ))}
+           </div>
         </div>
+
       </div>
     )
   }

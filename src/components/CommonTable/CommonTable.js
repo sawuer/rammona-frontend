@@ -9,14 +9,13 @@ export default class CommonTable extends Component {
 
   filter_row (val, attr, type) {
     var list = this.state.filter_list.slice();
-    
     for (let i = 0; i < list.length; i++) {
       if (list[i].attr == attr) {
         if (val == '') {
           list = list.filter((it, idx) => idx !== i)
-          console.log('>>', list)
         } else {
-          list[i].val = type == 'number' ? +val : val;
+          // list[i].val = type == 'number' ? +val : val;
+          list[i].val = val;
         }
         this.props.set_filters(list)
         return this.setState({ filter_list: list })

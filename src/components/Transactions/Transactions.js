@@ -31,14 +31,23 @@ class Transactions extends Component {
     });
   }
 
-  // filter = [
-  //   { "attr": "transaction_type_name", "val": "да" },
-  //   { "attr": "transaction_name", "val": "к" },
-  //   { "attr": "transaction_amount", "val": 0 }
-  // ]
+  add_new_row = new_row => {
+    fetcher({
+      method: 'POST',
+      body: { 
+        ...new_row,
+        transaction_type_id: new_row.transaction_type_name,
+      },
+      token: this.props.user_token,
+      path: 'http://localhost:8030/api/transactions',
+    }).then(resp => {
+      console.log(resp)
+      this.set_transactions()
+    });
+  }
+
 
   set_filters = query => {
-    console.log(JSON.stringify(query))
     this.set_transactions('?filter=' + JSON.stringify(query))
   }
 
@@ -50,6 +59,7 @@ class Transactions extends Component {
           <CommonTable
             features={this.props.transactions}
             set_filters={this.set_filters}
+            add_new_row={this.add_new_row}
             date_field={'transaction_timestamp'}
             attrs={['transaction_name', 'transaction_type_name', 'transaction_timestamp', 'transaction_amount']}
             headers={[

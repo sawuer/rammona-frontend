@@ -5,6 +5,16 @@ export default class CommonTable extends Component {
 
   state = {
     filter_list: [],
+    fields: {},
+  }
+
+
+  componentDidMount () {
+    const fields = {};
+    this.props.attrs.forEach(attr => {
+      fields[attr] = '';
+    });
+    this.setState({ fields });
   }
 
   filter_row (val, attr, type) {
@@ -69,18 +79,20 @@ export default class CommonTable extends Component {
           </div>
         
            <div className="CommonTable-new_item">
-            <button className="CommonTable-new_item_add">
+            <button className="CommonTable-new_item_add"
+              onClick={() => this.props.add_new_row(this.state.fields)}>
               <i className="CommonTable-new_item_add_icon mdi mdi-plus"></i>
             </button>
             {this.props.attrs.map((attr, attr_key) => (
-               <div className="CommonTable-new_item_field" key={attr_key}>
-                 <input
-                   type="text"
-                   className="CommonTable-new_item_field_input"
-                 />
-               </div>
-             ))}
-           </div>
+              <div className="CommonTable-new_item_field" key={attr_key}>
+                <input
+                  type="text"
+                  className="CommonTable-new_item_field_input"
+                  onChange={({ target: { value } }) => this.setState({ fields: { ...this.state.fields, [attr]: value }})}
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
       </div>

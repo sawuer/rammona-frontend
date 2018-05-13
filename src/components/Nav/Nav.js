@@ -12,14 +12,16 @@ class Nav extends Component {
         
         <button 
           className={this.props.history.location.pathname === '/transactions' ? 'Nav-item Nav-item--active' : 'Nav-item'}
-          onClick={() => this.route('/transactions')}>
-          <i className="Nav-item_icon mdi mdi-bell"></i>
+          onClick={() => this.route('/transactions')}
+          title="Transactions">
+          <i className="Nav-item_icon mdi mdi-cached"></i>
         </button>
 
         <button
           className={this.props.history.location.pathname === '/settings' ? 'Nav-item Nav-item--active' : 'Nav-item'}
-          onClick={() => this.route('/settings')}>
-          <i className="Nav-item_icon mdi mdi-bell"></i>
+          onClick={() => this.route('/settings')}
+          title="Settings">
+          <i className="Nav-item_icon mdi mdi-settings"></i>
         </button>
 
       </div>

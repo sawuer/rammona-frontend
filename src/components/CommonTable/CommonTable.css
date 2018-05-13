@@ -93,19 +93,18 @@
   left: -35px;
   top: 4px;
   border: none;
-  color: #ddd;
+  color: #aaa;
   border-radius: 50%;
   width: 25px;
   cursor: pointer;
   height: 25px;
   outline: none;
   background: none;
-  box-shadow: inset 0 0 1px #ccc;
   transition: background 200ms;
 }
 
 .CommonTable-delete:hover {
-  background: #f4f4f4;
+  background: #eee;
   box-shadow: none;
 }
 
@@ -123,14 +122,14 @@
   left: -35px;
   top: 0;
   border: none;
-  color: #ddd;
+  color: #aaa;
   border-radius: 50%;
   width: 25px;
   cursor: pointer;
   height: 25px;
   outline: none;
   background: none;
-  box-shadow: inset 0 0 1px #ccc;
+  box-shadow: inset 0 0 2px #999;
   transition: background 200ms;
 }
 

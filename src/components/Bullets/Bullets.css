@@ -1,0 +1,81 @@
+.Bullets-container {
+  overflow: hidden;
+}
+
+.Bullets-bullet {
+  background: #f1f1f1;
+  padding: 3.5px 10px;
+  color: #555;
+  margin-left: 10px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
+  float: left;
+}
+
+.Bullets-new_bullet_wrapper {
+  float: left;
+}
+
+.Bullets-new_bullet_input {
+  height: 23px;
+  padding: 0;
+  margin-left: -25px;
+  width: 150px;
+  padding-left: 30px;
+  outline: none;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+.Bullets-add_button {
+  position: relative;
+  border: none;
+  color: #bbb;
+  border-radius: 50%;
+  float: left;
+  width: 25px;
+  cursor: pointer;
+  height: 25px;
+  outline: none;
+  transition: all 200ms;
+  background: none;
+  box-shadow: inset 0 0 0 1px #bbb;
+}
+
+.Bullets-add_button_create {
+    position: relative;
+  border: none;
+  color: #fff;
+  border-radius: 50%;
+  float: left;
+  width: 25px;
+  cursor: pointer;
+  height: 25px;
+  outline: none;
+  transition: all 200ms;
+  background: none;
+  background: rgb(212, 0, 255);
+  box-shadow: inset 0 0 0 1px rgb(212, 0, 255);
+}
+
+.Bullets-add_button_create:hover {
+  opacity: .5;
+}
+
+
+.Bullets-add_button_icon {
+  font-size: 1.5em;
+  position: absolute;
+  line-height: 1em;
+  left: 50%;
+  top: 50%;
+  transform: translate(-.5em, -.5em);
+}
+
+.Bullets-add_button:hover {
+  background: #bbb;
+  color: #fff;
+  opacity: .5;
+}

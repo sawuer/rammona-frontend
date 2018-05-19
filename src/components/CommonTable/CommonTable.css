@@ -10,7 +10,7 @@
   display: flex;
   width: 100%;
   flex-direction: row;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #ddd;
 }
 
 .CommonTable-item:first-child {
@@ -81,7 +81,7 @@
 }
 
 .CommonTable-new_item_field_input {
-  border: 1px solid #eee;
+  border: 1px solid #ddd;
   width: 100%;
   outline: none;
   box-sizing: border-box;
@@ -146,7 +146,7 @@
 }
 
 .CommonTable-new_item_field_select {
-  border: 1px solid #eee;
+  border: 1px solid #ddd;
   background: none;
   width: 100%;
   outline: none;

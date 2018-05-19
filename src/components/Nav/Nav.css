@@ -1,6 +1,7 @@
 .Nav {
   position: fixed;
   top: 0;
+  padding-top: 3px;
   bottom: 0;
   width: 50px;
   background: #f4f4f4;

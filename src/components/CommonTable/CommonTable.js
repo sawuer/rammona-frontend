@@ -26,12 +26,12 @@ export default class CommonTable extends Component {
         } else {
           list[i].val = val;
         }
-        this.props.set_filters(list)
+        this.props.event_set_filters(list)
         return this.setState({ filter_list: list })
       }
     }
     list.push({ val, attr });
-    this.props.set_filters(list)
+    this.props.event_set_filters(list)
     this.setState({ filter_list: list })
   }
 
@@ -43,7 +43,7 @@ export default class CommonTable extends Component {
             {this.props.headers.map((header, key) => {
               return (
                 <div key={key} className="CommonTable-header">
-                  <span className="CommonTable-header_title">{header.title}</span>
+                  <span className="CommonTable-header_title">{header}</span>
                   <input 
                     type="search" 
                     className="CommonTable-header_filter"
@@ -58,7 +58,7 @@ export default class CommonTable extends Component {
               return (
                 <div className="CommonTable-item" key={feature_key}>
                   <button className="CommonTable-delete"
-                    onClick={() => this.props.delete_row(feature)}>
+                    onClick={() => this.props.event_delete_row(feature)}>
                     <i className="CommonTable-delete_icon mdi mdi-delete"></i>
                   </button>
                   
@@ -74,7 +74,7 @@ export default class CommonTable extends Component {
         
            <div className="CommonTable-new_item">
             <button className="CommonTable-new_item_add"
-              onClick={() => this.props.add_new_row(this.state.fields)}>
+              onClick={() => this.props.event_create_row(this.state.fields)}>
               <i className="CommonTable-new_item_add_icon mdi mdi-plus"></i>
             </button>
             {this.props.attrs.map((attr, attr_key) => (

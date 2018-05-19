@@ -3,6 +3,7 @@ import './Transactions.css'
 // import Alert from './../Alert/Alert'
 import Nav from './../Nav/Nav'
 import CommonTable from './../CommonTable/CommonTable'
+import Bullets from './../Bullets/Bullets'
 
 import fetcher from '../../utils/fetcher'
 import { connect } from 'react-redux';
@@ -36,13 +37,10 @@ class Transactions extends Component {
     fetcher({
       token: this.props.user_token,
       path: 'http://localhost:8030/api/transaction_types',
-    }).then(resp => {
-      console.log(resp)
-      this.props.get_transaction_types(resp)
-    });
+    }).then(resp => this.props.get_transaction_types(resp));
   }
 
-  add_new_row = new_row => {
+  create_row = new_row => {
     fetcher({
       method: 'POST',
       body: { 
@@ -79,38 +77,38 @@ class Transactions extends Component {
         <Nav />
 
         <div className="Transactions-container">
-          <ul>
-            {this.props.transaction_types.map(({ 
-              transaction_type_name, 
-              transaction_type_id 
-            }, transaction_type_key) => {
-              return <li key={transaction_type_key}>{transaction_type_name}, {transaction_type_id}</li>
-            })}
-          </ul>
-          <CommonTable
-            features={this.props.transactions}
-            set_filters={this.set_filters}
-            add_new_row={this.add_new_row}
-            delete_row={this.delete_row}
-            attrs={[
-              { title: 'transaction_name', input_type: 'text' }, 
-              { 
-                title: 'transaction_type_name',
-                input_type: 'select',
-                select_list: this.props.transaction_types,
-                value_field: 'transaction_type_id',
-                name_field: 'transaction_type_name',
-              }, 
-              { title: 'transaction_timestamp', input_type: 'date' }, 
-              { title: 'transaction_amount', input_type: 'number' }
-            ]}
-            headers={[
-              { title: 'Name' }, 
-              { title: 'Type' },
-              { title: 'Date' },
-              { title: 'Amount' },
-            ]}
-          />
+          <div className="Transactions-bullets">
+            <Bullets 
+              bullets={this.props.transaction_types}
+              bullet_title={'transaction_type_name'}
+              bullet_id={'transaction_type_id'}
+            />
+          </div>
+
+          <div className="Transactions-separator"></div>
+
+          <div className="Transactions-table">
+            <CommonTable
+              event_set_filters={this.set_filters}
+              event_create_row={this.create_row}
+              event_delete_row={this.delete_row}
+              features={this.props.transactions}
+              attrs={[
+                { title: 'transaction_name', input_type: 'text' }, 
+                { 
+                  title: 'transaction_type_name',
+                  input_type: 'select',
+                  select_list: this.props.transaction_types,
+                  value_field: 'transaction_type_id',
+                  name_field: 'transaction_type_name',
+                }, 
+                { title: 'transaction_timestamp', input_type: 'date' }, 
+                { title: 'transaction_amount', input_type: 'number' }
+              ]}
+              headers={['Name', 'Type', 'Date', 'Amount']}
+            />
+          </div>
+
         </div>
       </div>
     )

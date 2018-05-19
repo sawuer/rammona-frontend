@@ -4,5 +4,18 @@
   top: 0;
   right: 0;
   bottom: 0;
-  padding: 20px;
+  /* padding: 20px; */
+}
+
+.Transactions-bullets {
+  padding: 15px 15px;
+}
+
+.Transactions-table {
+  padding: 0 15px;
+}
+
+.Transactions-separator {
+  height: 3px;
+  background: #f4f4f4;
 }

@@ -11,8 +11,8 @@ export default class CommonTable extends Component {
 
   componentDidMount () {
     const fields = {};
-    this.props.attrs.forEach(attr => {
-      fields[attr] = '';
+    this.props.attrs.forEach(({ title }) => {
+      fields[title] = '';
     });
     this.setState({ fields });
   }
@@ -20,11 +20,10 @@ export default class CommonTable extends Component {
   filter_row (val, attr, type) {
     var list = this.state.filter_list.slice();
     for (let i = 0; i < list.length; i++) {
-      if (list[i].attr == attr) {
-        if (val == '') {
+      if (list[i].attr === attr) {
+        if (val === '') {
           list = list.filter((it, idx) => idx !== i)
         } else {
-          // list[i].val = type == 'number' ? +val : val;
           list[i].val = val;
         }
         this.props.set_filters(list)
@@ -46,9 +45,9 @@ export default class CommonTable extends Component {
                 <div key={key} className="CommonTable-header">
                   <span className="CommonTable-header_title">{header.title}</span>
                   <input 
-                    type="text" 
+                    type="search" 
                     className="CommonTable-header_filter"
-                    onChange={({ target: { value } }) => this.filter_row(value, this.props.attrs[key], header.type)}
+                    onChange={({ target: { value } }) => this.filter_row(value, this.props.attrs[key].title)}
                   />
                 </div>
               )
@@ -58,19 +57,14 @@ export default class CommonTable extends Component {
             {this.props.features.map((feature, feature_key) => {
               return (
                 <div className="CommonTable-item" key={feature_key}>
-                  <button className="CommonTable-delete">
+                  <button className="CommonTable-delete"
+                    onClick={() => this.props.delete_row(feature)}>
                     <i className="CommonTable-delete_icon mdi mdi-delete"></i>
                   </button>
                   
-                  {this.props.attrs.map((field, field_key) => (
-                    <div className="CommonTable-item_field" key={field_key}>
-                      {field == this.props.date_field 
-                        ? feature[field]
-                          .replace('T', ' ')
-                          .replace('.706Z', '')
-                          .replace(/\-/g, '.') 
-                        : feature[field]
-                      }
+                  {this.props.attrs.map((attr, attr_key) => (
+                    <div className="CommonTable-item_field" key={attr_key}>
+                      {feature[attr.title]}
                     </div>
                   ))}
                 </div>
@@ -85,11 +79,28 @@ export default class CommonTable extends Component {
             </button>
             {this.props.attrs.map((attr, attr_key) => (
               <div className="CommonTable-new_item_field" key={attr_key}>
-                <input
-                  type="text"
-                  className="CommonTable-new_item_field_input"
-                  onChange={({ target: { value } }) => this.setState({ fields: { ...this.state.fields, [attr]: value }})}
-                />
+                {attr.input_type === 'select' ?
+                  <select
+                    className="CommonTable-new_item_field_select"
+                    onChange={({ target: { value } }) => this.setState({ fields: { ...this.state.fields, [attr.title]: value } })}
+                  >
+                    <option selected disabled></option>
+                    {attr.select_list.map((it, key) => 
+                      <option
+                        key={key}
+                        value={it[attr.value_field]}
+                      >
+                        {it[attr.name_field]}
+                      </option>
+                    )}
+                  </select>
+                : 
+                  <input
+                    type={attr.input_type}
+                    className="CommonTable-new_item_field_input"
+                    onChange={({ target: { value } }) => this.setState({ fields: { ...this.state.fields, [attr.title]: value }})}
+                  /> 
+                }
               </div>
             ))}
           </div>

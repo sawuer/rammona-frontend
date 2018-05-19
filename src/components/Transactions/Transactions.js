@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 
 import {
   get_transactions,
+  get_transaction_types,
 } from '../../store/transactions/actions/_all.js';
 
 
@@ -19,6 +20,7 @@ class Transactions extends Component {
       return this.props.history.push('/signin');
     }
     this.set_transactions();
+    this.set_transaction_types();
   }
 
   set_transactions (query) {
@@ -27,7 +29,16 @@ class Transactions extends Component {
       path: `http://localhost:8030/api/transactions${query && query !== [] ? query: ''}`,
     }).then(resp => {
       this.props.get_transactions(resp)
-      // console.log(resp)
+    });
+  }
+
+  set_transaction_types () {
+    fetcher({
+      token: this.props.user_token,
+      path: 'http://localhost:8030/api/transaction_types',
+    }).then(resp => {
+      console.log(resp)
+      this.props.get_transaction_types(resp)
     });
   }
 
@@ -46,6 +57,17 @@ class Transactions extends Component {
     });
   }
 
+  delete_row = ({ transaction_id }) => {
+    fetcher({
+      method: 'DELETE',
+      body: { transaction_id },
+      token: this.props.user_token,
+      path: 'http://localhost:8030/api/transactions',
+    }).then(resp => {
+      console.log(resp)
+      this.set_transactions()
+    });
+  }
 
   set_filters = query => {
     this.set_transactions('?filter=' + JSON.stringify(query))
@@ -55,18 +77,38 @@ class Transactions extends Component {
     return (
       <div className="Transactions">
         <Nav />
+
         <div className="Transactions-container">
+          <ul>
+            {this.props.transaction_types.map(({ 
+              transaction_type_name, 
+              transaction_type_id 
+            }, transaction_type_key) => {
+              return <li key={transaction_type_key}>{transaction_type_name}, {transaction_type_id}</li>
+            })}
+          </ul>
           <CommonTable
             features={this.props.transactions}
             set_filters={this.set_filters}
             add_new_row={this.add_new_row}
-            date_field={'transaction_timestamp'}
-            attrs={['transaction_name', 'transaction_type_name', 'transaction_timestamp', 'transaction_amount']}
+            delete_row={this.delete_row}
+            attrs={[
+              { title: 'transaction_name', input_type: 'text' }, 
+              { 
+                title: 'transaction_type_name',
+                input_type: 'select',
+                select_list: this.props.transaction_types,
+                value_field: 'transaction_type_id',
+                name_field: 'transaction_type_name',
+              }, 
+              { title: 'transaction_timestamp', input_type: 'date' }, 
+              { title: 'transaction_amount', input_type: 'number' }
+            ]}
             headers={[
-              { title: 'Name', type: 'text' }, 
-              { title: 'Type', type: 'text' },
-              { title: 'Date', type: 'text' },
-              { title: 'Amount', type: 'number' },
+              { title: 'Name' }, 
+              { title: 'Type' },
+              { title: 'Date' },
+              { title: 'Amount' },
             ]}
           />
         </div>
@@ -77,11 +119,17 @@ class Transactions extends Component {
 
 export default connect(({ 
   signin: { user_token },
-  transactions: { transactions, transactions_filters },
+  transactions: { 
+    transactions,
+    transaction_types,
+    transactions_filters,
+  },
 }) => ({
   user_token,
   transactions,
+  transaction_types,
   transactions_filters,
 }), {
   get_transactions,
+  get_transaction_types,
 })(Transactions);

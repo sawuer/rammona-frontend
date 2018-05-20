@@ -35,6 +35,7 @@
   margin-left: 5px;
   box-shadow: inset 0 0 0 1px #bbb; 
   transition: all 200ms;
+  outline: none;
   cursor: pointer;
 }
 

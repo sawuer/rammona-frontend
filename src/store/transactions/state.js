@@ -5,4 +5,5 @@ export default {
   transactions_filters: '',
   transactions_offset: 0,
   transactions_limit: 4,
+  transactions_filter: '',
 }

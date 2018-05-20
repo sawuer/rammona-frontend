@@ -5,9 +5,9 @@ export default class CommonTable extends Component {
 
   state = {
     filter_list: [],
+    active_page: 1,
     fields: {},
   }
-
 
   componentDidMount () {
     const fields = {};
@@ -17,8 +17,9 @@ export default class CommonTable extends Component {
     this.setState({ fields });
   }
 
-  choose_page (page_num) {
-    return this.props.event_choose_page(this.props.limit * page_num - this.props.limit)
+  async choose_page (page_num) {
+    await this.setState({ active_page: page_num })
+    await this.props.event_choose_page(this.props.limit * this.state.active_page - this.props.limit)
   }
 
   filter_row (val, attr, type) {
@@ -30,12 +31,12 @@ export default class CommonTable extends Component {
         } else {
           list[i].val = val;
         }
-        this.props.event_set_filters(list)
+        this.props.event_set_filters(JSON.stringify(list))
         return this.setState({ filter_list: list })
       }
     }
     list.push({ val, attr });
-    this.props.event_set_filters(list)
+    this.props.event_set_filters(JSON.stringify(list))
     this.setState({ filter_list: list })
   }
 
@@ -79,12 +80,26 @@ export default class CommonTable extends Component {
           <div className="CommonTable-panel">
             <div className="CommonTable-features_count">{this.props.features_count}</div>
             <div className="CommonTable-pagination">
+              {this.state.active_page !== 1 ? 
+                <button
+                  onClick={() => this.choose_page(this.state.active_page - 1)}
+                  className="CommonTable-pagination_btn"
+                >{'<'}</button>
+              : ''}
+              
               {[...Array(Math.ceil(this.props.features_count / this.props.limit))].map((it, key) => (
                 <button key={key} 
                   onClick={() => this.choose_page(key+1)}
-                  className={key == 0 ? 'CommonTable-pagination_btn CommonTable-pagination_btn--active' : 'CommonTable-pagination_btn'}
+                  className={key + 1 == this.state.active_page ? 'CommonTable-pagination_btn CommonTable-pagination_btn--active' : 'CommonTable-pagination_btn'}
                 >{key+1}</button>
-              ))}
+              ))} 
+
+              {this.state.active_page !== Math.ceil(this.props.features_count / this.props.limit) ? 
+                <button
+                  onClick={() => this.choose_page(this.state.active_page + 1)}
+                  className="CommonTable-pagination_btn"
+                >{'>'}</button>
+              : ''}
             </div>
           </div>
 

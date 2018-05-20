@@ -17,6 +17,9 @@ export default (state = initialState, { val, type }) => {
     
     case 'SET_TRANSACTIONS_OFFSET':
       return { ...state, transactions_offset: val };
+
+    case 'SET_TRANSACTIONS_FILTER':
+      return { ...state, transactions_filter: val };
     
   }
   return state;

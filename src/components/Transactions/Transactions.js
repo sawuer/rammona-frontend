@@ -11,6 +11,9 @@ import { connect } from 'react-redux';
 import {
   get_transactions,
   get_transaction_types,
+  get_transactions_count,
+  set_transactions_limit,
+  set_transactions_offset,
 } from '../../store/transactions/actions/_all.js';
 
 
@@ -22,14 +25,25 @@ class Transactions extends Component {
     }
     this.set_transactions();
     this.set_transaction_types();
+    
+  }
+
+  set_transactions_count () {
+    fetcher({
+      token: this.props.user_token,
+      path: 'http://localhost:8030/api/transactions/count',
+    }).then(resp => {
+      this.props.get_transactions_count(resp)
+    });
   }
 
   set_transactions (query) {
     fetcher({
       token: this.props.user_token,
-      path: `http://localhost:8030/api/transactions${query && query !== [] ? query: ''}`,
+      path: `http://localhost:8030/api/transactions?offset=${this.props.transactions_offset}&limit=${this.props.transactions_limit}&${query && query !== [] ? query: ''}`,
     }).then(resp => {
       this.props.get_transactions(resp)
+      this.set_transactions_count();
     });
   }
 
@@ -67,8 +81,15 @@ class Transactions extends Component {
     });
   }
 
+  set_offset = async result => {
+    console.log(result)
+    await this.props.set_transactions_offset(result)
+    return this.set_transactions();
+
+  }
+
   set_filters = query => {
-    this.set_transactions('?filter=' + JSON.stringify(query))
+    this.set_transactions('filter=' + JSON.stringify(query))
   }
 
   render () {
@@ -92,7 +113,10 @@ class Transactions extends Component {
               event_set_filters={this.set_filters}
               event_create_row={this.create_row}
               event_delete_row={this.delete_row}
+              event_choose_page={this.set_offset}
               features={this.props.transactions}
+              features_count={this.props.transactions_count}
+              limit={this.props.transactions_limit}
               attrs={[
                 { title: 'transaction_name', input_type: 'text' }, 
                 { 
@@ -109,6 +133,9 @@ class Transactions extends Component {
             />
           </div>
 
+          <div className="Transactions-separator"></div>
+
+
         </div>
       </div>
     )
@@ -121,13 +148,22 @@ export default connect(({
     transactions,
     transaction_types,
     transactions_filters,
+    transactions_count,
+    transactions_limit,
+    transactions_offset,
   },
 }) => ({
   user_token,
   transactions,
   transaction_types,
   transactions_filters,
+  transactions_count,
+  transactions_limit,
+  transactions_offset,
 }), {
   get_transactions,
+  get_transactions_count,
   get_transaction_types,
+  set_transactions_limit,
+  set_transactions_offset,
 })(Transactions);

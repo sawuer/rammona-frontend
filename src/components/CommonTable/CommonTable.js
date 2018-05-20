@@ -17,6 +17,10 @@ export default class CommonTable extends Component {
     this.setState({ fields });
   }
 
+  choose_page (page_num) {
+    return this.props.event_choose_page(this.props.limit * page_num - this.props.limit)
+  }
+
   filter_row (val, attr, type) {
     var list = this.state.filter_list.slice();
     for (let i = 0; i < list.length; i++) {
@@ -71,8 +75,20 @@ export default class CommonTable extends Component {
               )
             })}
           </div>
-        
-           <div className="CommonTable-new_item">
+          
+          <div className="CommonTable-panel">
+            <div className="CommonTable-features_count">{this.props.features_count}</div>
+            <div className="CommonTable-pagination">
+              {[...Array(Math.ceil(this.props.features_count / this.props.limit))].map((it, key) => (
+                <button key={key} 
+                  onClick={() => this.choose_page(key+1)}
+                  className={key == 0 ? 'CommonTable-pagination_btn CommonTable-pagination_btn--active' : 'CommonTable-pagination_btn'}
+                >{key+1}</button>
+              ))}
+            </div>
+          </div>
+
+          <div className="CommonTable-new_item">
             <button className="CommonTable-new_item_add"
               onClick={() => this.props.event_create_row(this.state.fields)}>
               <i className="CommonTable-new_item_add_icon mdi mdi-plus"></i>

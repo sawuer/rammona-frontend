@@ -9,7 +9,15 @@ export default (state = initialState, { val, type }) => {
     case 'GET_TRANSACTION_TYPES':
       return { ...state, transaction_types: val };
     
-    default:
+    case 'GET_TRANSACTIONS_COUNT':
+      return { ...state, transactions_count: val };
+    
+    case 'SET_TRANSACTIONS_LIMIT':
+      return { ...state, transactions_limit: val };
+    
+    case 'SET_TRANSACTIONS_OFFSET':
+      return { ...state, transactions_offset: val };
+    
   }
   return state;
 }
